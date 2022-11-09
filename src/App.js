@@ -1,7 +1,8 @@
 import "./AppStyle.scss";
 import { useState } from "react";
-import Keyboard from "./components/Keyboard";
-import View from "./components/View";
+import { ACTION, TYPE } from "utils/constants";
+import Keyboard from "components/Keyboard";
+import View from "components/View";
 
 let output = "";
 let history = "";
@@ -43,20 +44,21 @@ function App() {
     };
 
     switch (id) {
-      case "clear":
+      case ACTION.CLEAR:
         resetOutput(true);
         break;
-      case "clearBack":
+      case ACTION.CLEAR_BACK:
         output = output.slice(0, -1);
         updateState();
         break;
-      case "calc":
+      case ACTION.CALC:
         calculate(lastInput);
         break;
       default:
         return;
     }
   };
+
   const operatorKey = (value, lastInput) => {
     // prevent starting with an operator
     if (output === "" && value !== "-") {
@@ -69,6 +71,7 @@ function App() {
     }
     updateState();
   };
+
   const numberKey = (value, lastInput) => {
     // prevent entering . or % multipy times
     if (value === "." || value === "%") {
@@ -86,13 +89,13 @@ function App() {
     let lastInput = output.slice(-1);
 
     switch (keyType) {
-      case "function":
+      case TYPE.FUNCTION:
         functionKey(id, lastInput);
         break;
-      case "operator":
+      case TYPE.OPERATOR:
         operatorKey(value, lastInput);
         break;
-      case "number":
+      case TYPE.NUMBER:
         numberKey(value, lastInput);
         break;
       default:

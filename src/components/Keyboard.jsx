@@ -26,16 +26,17 @@ const keys = [
 function Keyboard({ onClick }) {
   return (
     <div className="keyboard">
-      {keys.map((key) => (
-        <div
-          className="keyboard__btn"
-          id={key.id}
-          key={key.id}
-          onClick={() => onClick(key.id, key.class, key.value)}
-        >
-          {key.value}
-        </div>
-      ))}
+      {keys.length > 0 &&
+        keys.map((key) => (
+          <div
+            className="keyboard__btn"
+            id={key.id}
+            key={key.id}
+            onClick={() => onClick(key.id, key.class, key.value)}
+          >
+            {key.value}
+          </div>
+        ))}
     </div>
   );
 }
